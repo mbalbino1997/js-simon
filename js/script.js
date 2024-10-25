@@ -19,7 +19,7 @@ let inputValues = [];
 //valore numerico che rappresenta il numero di elementi in comune tra i due array
 let numberScore = 0;
 //array che conterrà i numeri indovinati
-let arrayNumberScore= [];
+let arrayNumberScore = [];
 //prendo l'elemento result
 const result = document.getElementById("result");
 //prendo l'elemento instructions
@@ -49,7 +49,7 @@ const intervalId = setInterval(function () {
 //ci mettiamo in ascolto del submit e preveniamo il default
 answersForm.addEventListener("submit", function (event) {
     event.preventDefault();
-    arrayNumberScore=[];
+    arrayNumberScore = [];
 
     //scorro gli input ed inserisco i valori nell array
     for (let i = 0; i < inputs.length; i++) {
@@ -77,23 +77,19 @@ answersForm.addEventListener("submit", function (event) {
 })
 
 
-
-
-
-
-
 //FUNZIONI:
 
 //funzione che genera un array di 5 numeri random da 1 a 50 tutti diversi tra loro
 function fiveRandomNumbers() {
+    let array = []
     do {
-        let array = []
-    for (let i = 0; i < 5; i++) {
-        array[i] = Math.floor(Math.random() * 50) + 1;
-    }
+
+        for (let i = 0; i < 5; i++) {
+            array[i] = Math.floor(Math.random() * 50) + 1;
+        }
     } while (hasAtLeastOneDuplicate(array));
 
-    
+
     return array;
 }
 
