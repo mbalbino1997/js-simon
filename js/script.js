@@ -1,3 +1,47 @@
+//FUNZIONI:
+
+//funzione che genera un array di 5 numeri random da 1 a 50 tutti diversi tra loro
+function fiveRandomNumbers() {
+    let array = []
+    do {
+
+        for (let i = 0; i < 5; i++) {
+            array[i] = Math.floor(Math.random() * 50) + 1;
+        }
+    } while (hasAtLeastOneDuplicate(array));
+
+
+    return array;
+}
+
+//funzione che controlla se l'array ha duplicati
+function hasAtLeastOneDuplicate(array) {
+    for (let i = 0; i < array.length; i++) {
+        for (let j = i + 1; j < array.length; j++) {
+            if (array[i] === array[j]) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+//funzione che confronta due array e restituisce il numero di elementi in comune e gli elementi in comune
+function twoArrayComparison(arrayOne, arrayTwo, arrayEquals) {
+    let count = 0;
+    for (let i = 0; i < arrayOne.length; i++) {
+        if (arrayOne.includes(arrayTwo[i])) {
+            arrayEquals.push(arrayTwo[i]);
+            count++;
+        }
+    }
+    return count;
+}
+
+
+
+//APPLICATIVO:
+
 //creiamo l'array di numeri richiamando la funzione apposita
 const randomNumbers = fiveRandomNumbers();
 //prendiamo dal dom l'ul
@@ -77,42 +121,3 @@ answersForm.addEventListener("submit", function (event) {
 })
 
 
-//FUNZIONI:
-
-//funzione che genera un array di 5 numeri random da 1 a 50 tutti diversi tra loro
-function fiveRandomNumbers() {
-    let array = []
-    do {
-
-        for (let i = 0; i < 5; i++) {
-            array[i] = Math.floor(Math.random() * 50) + 1;
-        }
-    } while (hasAtLeastOneDuplicate(array));
-
-
-    return array;
-}
-
-//funzione che controlla se l'array ha duplicati
-function hasAtLeastOneDuplicate(array) {
-    for (let i = 0; i < array.length; i++) {
-        for (let j = i + 1; j < array.length; j++) {
-            if (array[i] === array[j]) {
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-//funzione che confronta due array e restituisce il numero di elementi in comune e gli elementi in comune
-function twoArrayComparison(arrayOne, arrayTwo, arrayEquals) {
-    let count = 0;
-    for (let i = 0; i < arrayOne.length; i++) {
-        if (arrayOne.includes(arrayTwo[i])) {
-            arrayEquals.push(arrayTwo[i]);
-            count++;
-        }
-    }
-    return count;
-}
