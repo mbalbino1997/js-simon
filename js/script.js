@@ -17,7 +17,13 @@ const inputs = inputGroup.querySelectorAll("input");
 //inizializzo array che conterrà i valori degli input
 let inputValues = [];
 //valore numerico che rappresenta il numero di elementi in comune tra i due array
-let numberScore=0;
+let numberScore = 0;
+//array che conterrà i numeri indovinati
+let arrayNumberScore= [];
+//prendo l'elemento result
+const result = document.getElementById("result");
+//prendo l'elemento instructions
+const instructions = document.getElementById("instructions");
 
 //inseriamo i figli di ul nell html
 for (let i = 0; i < randomNumbers.length; i++) {
@@ -40,18 +46,32 @@ const intervalId = setInterval(function () {
 }, 1_000);
 
 
-
-answersForm.addEventListener("submit", function(event){
+//ci mettiamo in ascolto del submit e preveniamo il default
+answersForm.addEventListener("submit", function (event) {
     event.preventDefault();
+    arrayNumberScore=[];
+
     //scorro gli input ed inserisco i valori nell array
-    for(let i=0; i<inputs.length;i++){
+    for (let i = 0; i < inputs.length; i++) {
+
         inputValues.push(parseInt(inputs[i].value));
     }
     console.log(inputValues);
 
     //utilizziamo la funzione che confronta due array e salviamo il risultato nella variabile numberScore
-    numberScore= twoArrayComparison(inputValues,randomNumbers);
+    numberScore = twoArrayComparison(inputValues, randomNumbers, arrayNumberScore);
     console.log(numberScore);
+
+    //nascondiamo dal layout gli elementi che non ci servono
+    answersForm.classList.add("d-none");
+    countdown.classList.add("d-none");
+    instructions.classList.add("d-none");
+
+    //dopo aver inserito il contenuto nell elemento togliamo il display none
+    result.innerText = `HAI INDOVINATO ${numberScore} NUMERI SU 5
+    NUMERI INDOVINATI: ${arrayNumberScore}`;
+
+    result.classList.remove("d-none");
 
 
 })
@@ -73,11 +93,12 @@ function fiveRandomNumbers() {
     return array;
 }
 
-//funzione che confronta due array e restituisce il numero di elementi in comune
-function twoArrayComparison (arrayOne,arrayTwo) {
+//funzione che confronta due array e restituisce il numero di elementi in comune e gli elementi in comune
+function twoArrayComparison(arrayOne, arrayTwo, arrayEquals) {
     let count = 0;
-    for(let i=0; i<arrayOne.length;i++) {
-        if(arrayTwo.includes(arrayOne[i])) {
+    for (let i = 0; i < arrayOne.length; i++) {
+        if (arrayOne.includes(arrayTwo[i])) {
+            arrayEquals.push(arrayTwo[i]);
             count++;
         }
     }
